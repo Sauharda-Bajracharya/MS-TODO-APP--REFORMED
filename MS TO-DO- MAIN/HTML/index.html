@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task App</title>
+    <link rel="stylesheet" href="/CSS/style.css">
+    <link rel="stylesheet" href="/CSS/home.css">
+    <link rel="stylesheet" href="/CSS/tasks.css">
+    <script src="https://kit.fontawesome.com/8aa9f7bd1f.js" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</head>
+<body>
+
+    <div class="side-bar">
+
+        <h1 class="logo">Task App</h1>
+        
+            <a href="#" id="home" class="active" onclick="loadContent('tasks-today')">
+                <i class="fa-regular fa-sun"></i> <span class="sidebar-label">My Day</span>
+            </a>
+            <a href="#" id="important" onclick="loadContent('important')">
+                <i class="fa-regular fa-star"></i> <span class="sidebar-label">Important</span>
+            </a>
+            <a href="#" id="planned" onclick="loadContent('planned')">
+                <i class="fa-regular fa-calendar"></i> <span class="sidebar-label">Planned</span>
+            </a>
+            <a href="#" id="tasks" onclick="loadContent('tasks-general')">
+                <i class="fa-solid fa-list-ul"></i> <span class="sidebar-label">Tasks</span>
+            </a>
+            <a href="#" id="settings" onclick="loadContent('settings')">
+                <i class="fa-solid fa-gear"></i> <span class="sidebar-label">Settings</span>
+            </a>
+                <hr>
+            <a href="#" id="new-list" onclick="createNewList()">
+                <i class="fas fa-plus"></i> <span class="sidebar-label">New List</span>
+            </a>
+    </div>
+
+    <div class="content" id="content">
+        <div class="header">
+            <form class="search-form">
+                <div class="search-container">
+                    <i class="fa fa-search search-icon" aria-hidden="true"></i>
+                    <input type="text" placeholder="Search.." class="search-input">
+                </div>
+            </form>
+            
+            <div class="user-profile">
+                <div class="profile-name">
+                    <btn class="btn-profile">Profile</btn>
+                </div>
+                <div class="profile-icon">
+                    <i class="fa-regular fa-user"></i>
+                </div>
+            </div> 
+        </div>
+    </div>
+
+
+    <div class="task-page" id="taskContent">
+        <div class="task-container">
+            <div class="todo-header">
+                <h2> <i class="fa-regular fa-sun"></i> My Day</h2>
+                <span id="currentDate"></span>
+                <div id="wrapper">
+                    <span id="error">Lorem ipsum</span>
+                    <div id="input">
+                      <input type="text" placeholder="Add a task">
+                      <button id="add-task" title="Add New Task"><i class="fa fa-plus fa-fw" aria-hidden="true"></i></button>
+                    </div>
+                    <div id="tasks">
+                      <ol>
+                      </ol>
+                    </div>
+                  </div>
+              </div>
+              <ul id="list-items" class="list-items"></ul>
+
+        </div>
+    </div>
+    
+
+</body>
+
+    <script src="/JS/tasks.js"></script>
+    <script src="/JS/script.js"></script>
+    <script src="/JS/active.js"></script>
+    <script src="/JS/newList.js"></script>
+
+</html>

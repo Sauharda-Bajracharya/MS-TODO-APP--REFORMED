@@ -1,0 +1,288 @@
+$clouds: #ffffff;
+$font: Arial;
+$alizarin: #e74c3c;
+$emerald: #2ecc71;
+$peter-river: #000;
+$sun-flower: #f1c40f;
+$amethyst: #9b59b6;
+$turquoise: #1abc9c;
+$nephritis: #27ae60;
+$colors: #080808;
+
+@for $i from 1 through length($colors) {
+    li.task:nth-child(#{length($colors)}n+#{$i}) {
+        &::after {
+            background: linear-gradient(to right, nth($colors, $i), darken(nth($colors, $i), 10%));
+        }
+        &::before {
+            color: nth($colors, $i);
+        }
+    }
+}
+
+.task-container {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 300px;
+    font-family: 'League Spartan';
+
+    .todo-header {
+        position: absolute;
+        display: flex;
+        flex-direction: column;
+        width: 80%;
+        height: 100%;
+        margin-top: 20px;
+    }
+
+    h2 {
+        font-size: 36px;
+        font-weight: 700;
+    }
+
+    #currentDate {
+        margin-top: 10px;
+        font-size: 16px;
+        color: #0B1215;
+    }
+
+    p.sub-title {
+        font-size: 16px;
+        margin: 10px 0 40px;
+        
+        a {
+            color: black;
+            padding: 0 1px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            
+            &:hover {
+                border-color: $nephritis;
+                color: $nephritis;
+                padding: 0 1px 1px;
+            }
+        }
+    }
+
+    span#error {
+        background: $alizarin;
+        border-radius: 8px;
+        color: white;
+        display: inline-block;
+        opacity: 0;
+        padding: 6px 16px;
+        position: relative;
+        top: 0px;
+        transition: all 0.3s ease;
+        
+        &::after {
+            border-left: 8px solid transparent;
+            border-right: 8px solid transparent;
+            border-top: 8px solid $alizarin;
+            content: '';
+            height: 0;
+            left: calc(50% - 8px);
+            position: absolute;
+            top: 27px;
+            width: 0; 
+        }
+        
+        &.active {
+            opacity: 1;
+            top: -12px;
+            color: #0B1215 !important;
+        }
+    }
+
+    div#input {
+        border-radius: 8px;
+        box-shadow: 0px 2px 5px 0px darken($clouds, 20%);
+        font-size: 0;
+        height: 40px;
+        line-height: 40px;
+        
+        input {
+            background: white;
+            border: 2px solid #fdfdfd;
+            font-family: $font;
+            z-index: 99;
+            height: 100%;
+            padding: 0 12px;
+            width: calc(100% - 64px);
+            
+        }
+        
+        button {
+            background: $emerald;
+            color: white;
+            position: relative;
+            cursor: pointer;
+            font-size: 18px;
+            top: 2px;
+            height: 100%;
+            width: 40px;
+            border: none;
+            
+            &:hover {
+                background: darken($emerald, 2.5%);
+            }
+        }
+    }
+
+    div#tasks {
+        margin-top: 20px; // Adjusted margin top
+        text-align: left;
+
+        ol {
+            position: relative;
+            counter-reset: list-counter;
+
+            li.task {
+                background: white;
+                border-radius: 8px;
+                box-shadow: 0px 2px 5px 0px darken($clouds, 10%);
+                font-size: 20px;
+                height: 60px;
+                line-height: 61px;
+                margin: 8px 0 0;
+                overflow: hidden;
+                padding: 0 12px 0 14px;
+                position: relative;
+
+                &::before {
+                    content: counter(list-counter);
+                    counter-increment: list-counter;
+                    float: left;
+                    font: $font;
+                    font-weight: 600;
+                    font-feature-settings: "tnum" on;
+                    font-variant-numeric: tabular-nums;
+                    margin: 0 10px 0 5px;
+                }
+
+                &::after {
+                    bottom: 0;
+                    content: '';
+                    height: 3px;
+                    left: 0;
+                    position: absolute;
+                    width: 100%;
+                }
+
+                &:hover {
+                    transition: box-shadow 0.3s ease-in-out;
+                    box-shadow: 0px 2px 5px 0px darken($clouds, 25%);
+
+                    p {
+                        width: calc(100% - 135px);
+                    }
+
+                    button {
+                        transition: opacity 0.25s ease;
+                        opacity: 1;
+                    }
+                }
+
+                &.completed {
+                    animation-duration: 1s;
+                    animation-fill-mode: both;
+                    animation-name: zoomOut;
+
+                    &::after {
+                        content: '\f164';
+                        color: white;
+                        font-family: FontAwesome;
+                        font-size: 30px;
+                        height: 100%;
+                        text-align: center;
+                    }
+                }
+
+                &:nth-child(n+10) {
+                    &:hover p {
+                        width: calc(100% - 144px);
+                    }
+
+                    p {
+                        width: calc(100% - 40px);
+                    }
+
+                    input.editable {
+                        left: 53px;
+                    }
+                }
+
+                p {
+                    margin: 0 auto;
+                    display: inline-block;
+                    text-overflow: ellipsis;
+                    overflow: hidden;
+                    transition: width 0.2s ease;
+                    white-space: nowrap;
+                    width: calc(100% - 30px);
+                }
+
+                input.editable {
+                    border: none;
+                    display: none;
+                    font-family: $font;
+                    font-size: 20px;
+                    left: 41px;
+                    position: absolute;
+                    text-overflow: ellipsis;
+                    top: 17px;
+                    width: calc(100% - 130px);
+                }
+
+                button {
+                    cursor: pointer;
+                    font-size: 20px;
+                    opacity: 0;
+                    transition: opacity 0.25s ease;
+
+                    &.complete {
+                        color: $emerald;
+                    }
+                    &.edit, &.save {
+                        color: $peter-river;
+                    }
+                    &.delete, &.cancel {
+                        color: $alizarin;
+                    }
+                    &.save, &.cancel {
+                        display: none;
+                        opacity: 1 !important;
+                    }
+
+                    i {
+                        margin-left: 4px;
+                    }
+                }
+
+                div.button-wrap {
+                    float: right;
+                    font-size: 0;
+                    line-height: 72px;
+                }
+            }
+        }
+    }
+
+    // Keyframe Animations
+    @keyframes zoomOut {
+        from {
+            opacity: 1;
+        }
+
+        50% {
+            opacity: 0;
+            transform: scale3d(1.15, 1.15, 1.15);
+        }
+    }
+
+    li.task.test-completed p {
+        text-decoration: line-through;
+        opacity: 0.6;
+    }
+}
